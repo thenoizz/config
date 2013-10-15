@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir /mnt/cdrom
-mount /dev/cdrom1 /mnt/cdrom -t iso9660
+mount /dev/cdrom /mnt/cdrom -t iso9660
 cp /mnt/cdrom/VMwareTools-*.tar.gz /tmp
 umount /mnt/cdrom
 tar -zxf /tmp/VMwareTools-*.tar.gz -C /tmp
