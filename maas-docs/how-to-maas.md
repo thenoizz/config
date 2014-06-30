@@ -2,13 +2,11 @@
 This document will describe how to deploy Ubuntu® MAAS supporting some Windows features.
 
 ###Prerequisites:
-**Machine 1** (MAAS Controller)
-Ubuntu 14.04 Server w/ two NIC's (1 external, 1 private).
+**Machine 1** (MAAS Controller): Ubuntu 14.04 Server w/ two NIC's (1 external, 1 private).
 
-**Machine 2** (Windows Image Generator)
-Windows Server 2012 R2, 1 NIC (external) on the same network w/ Machine 1. 
+**Machine 2** (Windows Image Generator): Windows Server 2012 R2, 1 NIC (external) on the same network w/ Machine 1. 
 
-*Note:* It will need acces to the Machine 1 samba server.
+*Note:* Machine 2 will need network acces to the Machine 1 samba server.
 <!-- PreSteps for VMware ESXi
 
 Create a new VM, 2 NIC’s, 1 external, 1 private.
@@ -72,19 +70,19 @@ configure networking (static ip’s, etc)
 	4. Edit `BuildInstallImage.ps1` and set the *InstallMediaPath* variable to the mounted ISO drive letter. 
 
 	5. Mount the samba server `\\<server-ip>\reminst`
-	```
-	New-PSDrive -Name <drive letter> -Root \\<server-ip>\reminst -PSProvider FileSystem
-	```
+		```
+		New-PSDrive -Name <drive letter> -Root \\<server-ip>\reminst -PSProvider FileSystem
+		```
 
 	6. Set *TargetPath* inside `CopyImageToMaaS.ps1` to the appropriate samba server mounted on your drive letter. So instead of the default value `\\192.168.100.1\WinPE` you would have `<drive letter>:\\`
 
 
 	7. Run scripts in the following order:
-	```
-	.\BuildWinPE.ps1
-	.\BuildInstallImage.ps1 
-	.\CopyImageToMaaS.ps1
-	```
+		```
+		.\BuildWinPE.ps1
+		.\BuildInstallImage.ps1 
+		.\CopyImageToMaaS.ps1
+		```
 
 	*For further reading about the tools:*
 	[https://github.com/cloudbase/adk-tools-maas/blob/master/README.md](https://github.com/cloudbase/adk-tools-maas/blob/master/README.md)
