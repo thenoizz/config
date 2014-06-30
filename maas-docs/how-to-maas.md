@@ -13,8 +13,6 @@ configure networking (static ip’s, etc)
 
 -->
 
-
-
 ###Notes:
 * For maas-node you need 2 NIC's, one public, one private.
 * The Windows machine will only be used to generate the windows images for MAAS.
@@ -22,14 +20,17 @@ configure networking (static ip’s, etc)
 
 ###Steps:
 
-1. Add ppa	
+1. Add ppa
+	
 	```
 	ppa:maas-maintainers/testing
 	sudo apt-get install software-properties-common -y
 	sudo add-apt-repository ppa:maas-maintainers/testing
 	sudo apt-get update
 	```
+
 2. Install maas and maas-samba. Be sure to have only maas-samba running with the proper configurations.
+	
 	```
 	sudo apt-get install maas maas-samba -y
 	sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.old
@@ -39,10 +40,13 @@ configure networking (static ip’s, etc)
 	```
 
 3. Create admin user (insert password when prompted)
+	
 	```
 	sudo maas-region-admin createadmin --username root --email user@server.com"
 	```
+
 4. Import boot images
+	
 	```
 	sudo maas-import-pxe-files
 	```
@@ -87,6 +91,7 @@ configure networking (static ip’s, etc)
 
 7.  Edit the default cluster and enable DHCP and DNS on the interface where you will be serving DHCP, see following image for an example.
 	go to the url: http://<maas-server-ip>/MAAS/clusters/ ; eth1 is most probably the one that needs to be configured
+	
 	Example:
 		```
 		Router ip = eth1's Ip
@@ -95,10 +100,12 @@ configure networking (static ip’s, etc)
 		```
 
 8. Set upstream DNS:
+
 	go to the url `http://<maas-server-ip>/MAAS/settings/`
 	Look for "Upstream DNS used to resolve domains not managed by this MAAS" and set the dns to something like 8.8.8.8
 
-9. Add a ssh key for authentification to the nodes:
+9. Add a ssh key for authentification to the nodes
+	
 	Generate a key:
 		```
 		ssh-keygen -t rsa
