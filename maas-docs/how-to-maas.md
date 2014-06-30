@@ -1,8 +1,14 @@
 #How to deploy MAAS
-##Prerequisites:
-* VM1
-* VM2
+This document will describe how to deploy Ubuntu® MAAS supporting some Windows features.
 
+###Prerequisites:
+**Machine 1** (MAAS Controller)
+Ubuntu 14.04 Server w/ two NIC's (1 external, 1 private).
+
+**Machine 2** (Windows Image Generator)
+Windows Server 2012 R2, 1 NIC (external) on the same network w/ Machine 1. 
+
+*Note:* It will need acces to the Machine 1 samba server.
 <!-- PreSteps for VMware ESXi
 
 Create a new VM, 2 NIC’s, 1 external, 1 private.
@@ -13,17 +19,17 @@ configure networking (static ip’s, etc)
 
 -->
 
-###Notes:
-* For maas-node you need 2 NIC's, one public, one private.
-* The Windows machine will only be used to generate the windows images for MAAS.
-* It needs access to the samba server
+<!-- ###Notes:
+* For maas-controller you need 2 NIC's, one public, one private.
+* The Windows machine will only be used to generate the windows images for MAAS. -->
 
 ###Steps:
 
-1. Add ppa
+1. Add ppa:maas-maintainers/testing
 	
 	```
-	ppa:maas-maintainers/testing
+	sudo apt-get update
+	sudo apt-get upgrade
 	sudo apt-get install software-properties-common -y
 	sudo add-apt-repository ppa:maas-maintainers/testing
 	sudo apt-get update
@@ -35,14 +41,14 @@ configure networking (static ip’s, etc)
 	sudo apt-get install maas maas-samba -y
 	sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.old
 	sudo cp /etc/maas/smb.conf /etc/samba/smb.conf
-	sudo service smbd  restart
+	sudo service smbd restart
 	mkdir -p /var/lib/samba/usershares/reminst
 	```
 
 3. Create admin user (insert password when prompted)
 	
 	```
-	sudo maas-region-admin createadmin --username root --email user@server.com"
+	sudo maas-region-admin createadmin --username root --email user@server.com
 	```
 
 4. Import boot images
@@ -58,22 +64,26 @@ configure networking (static ip’s, etc)
 	2. Get tools for generating winPE files 
 	```
 	git clone https://github.com/cloudbase/adk-tools-maas.git
+	cd adk-tools-maas
 	```
 	
-	3. Download and mount your ISO windows file that you later want to deploy and set *InstallMediaPath* variable to the correct drive letter inside BuildInstallImage.ps1
+	3. Download and mount a Windows ISO file that you later want to deploy. 
+	
+	4. Edit `BuildInstallImage.ps1` and set the *InstallMediaPath* variable to the mounted ISO drive letter. 
 
-	4. Mount the samba server `\\<server-ip>\reminst`
+	5. Mount the samba server `\\<server-ip>\reminst`
 	```
 	New-PSDrive -Name <drive letter> -Root \\<server-ip>\reminst -PSProvider FileSystem
 	```
 
-	5. Set *TargetPath* inside `CopyImageToMaaS.ps1` to the appropriate samba server mounted on your drive letter. So instead of the default value `\\192.168.100.1\WinPE` you would have `<drive letter>:\\`
+	6. Set *TargetPath* inside `CopyImageToMaaS.ps1` to the appropriate samba server mounted on your drive letter. So instead of the default value `\\192.168.100.1\WinPE` you would have `<drive letter>:\\`
 
-	6. Run scripts in this order:
+
+	7. Run scripts in the following order:
 	```
-	./BuildWinPE.ps1
-	./BuildInstallImage.ps1 
-	./CopyImageToMaaS.ps1
+	.\BuildWinPE.ps1
+	.\BuildInstallImage.ps1 
+	.\CopyImageToMaaS.ps1
 	```
 
 	*For further reading about the tools:*
