@@ -60,10 +60,10 @@ configure networking (static ip’s, etc)
 	1. Install git
 
 	2. Get tools for generating winPE files 
-	```
-	git clone https://github.com/cloudbase/adk-tools-maas.git
-	cd adk-tools-maas
-	```
+		```
+		git clone https://github.com/cloudbase/adk-tools-maas.git
+		cd adk-tools-maas
+		```
 	
 	3. Download and mount a Windows ISO file that you later want to deploy. 
 	
@@ -97,19 +97,20 @@ configure networking (static ip’s, etc)
 	for i in `ls /var/lib/maas/samba/ws2012r2/boot/`;do ln -s /var/lib/maas/samba/win2012r2/boot/$i $i;done
 	```
 
-7.  Edit the default cluster and enable DHCP and DNS on the interface where you will be serving DHCP, see following image for an example.
-	go to the url: http://<maas-server-ip>/MAAS/clusters/ ; eth1 is most probably the one that needs to be configured
+7.  Edit the default cluster and enable DHCP and DNS on the interface where you will be serving DHCP (see the screenshot as an example).
+	
+	Open `http://<maas-server-ip>/MAAS/clusters/` in a browser; **eth1** is most probably the one that needs to be configured.
 	
 	Example:
-		```
-		Router ip = eth1's Ip
-		Ip = eth1's Ip
-		http://wiki.cloudbase.it/_media/screen_shot_2014-04-23_at_01.27.08.png
-		```
+		
+	>*Router IP = eth1's IP*
+	>*IP = eth1's IP*
+	>![Screenshot](http://wiki.cloudbase.it/_media/screen_shot_2014-04-23_at_01.27.08.png)
+		
 
 8. Set upstream DNS:
 
-	go to the url `http://<maas-server-ip>/MAAS/settings/`
+	Open `http://<maas-server-ip>/MAAS/settings/` in a browser.
 	Look for "Upstream DNS used to resolve domains not managed by this MAAS" and set the dns to something like 8.8.8.8
 
 9. Add a ssh key for authentification to the nodes
@@ -122,7 +123,7 @@ configure networking (static ip’s, etc)
 	
 	Copy the output.
 	
-	Go to the url `http://<maas-server-ip>/MAAS/account/prefs/sshkey/add/` and paste the contents that you copied.
+	Open `http://<maas-server-ip>/MAAS/account/prefs/sshkey/add/` and paste the contents.
 
 10. If you are working on Vmware workstation/ESXI server you will need a power adapter so that MAAS can power on and off the VM's
 
