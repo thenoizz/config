@@ -25,7 +25,7 @@ configure networking (static ip’s, etc)
 
 1. Add ppa:maas-maintainers/testing
 	
-	```
+	```bash
 	sudo apt-get update
 	sudo apt-get upgrade
 	sudo apt-get install software-properties-common -y
@@ -35,7 +35,7 @@ configure networking (static ip’s, etc)
 
 2. Install maas and maas-samba. Be sure to have only maas-samba running with the proper configurations.
 	
-	```
+	```bash
 	sudo apt-get install maas maas-samba -y
 	sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.old
 	sudo cp /etc/maas/smb.conf /etc/samba/smb.conf
@@ -45,13 +45,13 @@ configure networking (static ip’s, etc)
 
 3. Create admin user (insert password when prompted)
 	
-	```
+	```bash
 	sudo maas-region-admin createadmin --username root --email user@server.com
 	```
 
 4. Import boot images
 	
-	```
+	```bash
 	sudo maas-import-pxe-files
 	```
 
@@ -60,7 +60,7 @@ configure networking (static ip’s, etc)
 	1. Install git
 
 	2. Get tools for generating winPE files 
-		```
+		```PowerShell
 		git clone https://github.com/cloudbase/adk-tools-maas.git
 		cd adk-tools-maas
 		```
@@ -70,7 +70,7 @@ configure networking (static ip’s, etc)
 	4. Edit `BuildInstallImage.ps1` and set the *InstallMediaPath* variable to the mounted ISO drive letter. 
 
 	5. Mount the samba server `\\<server-ip>\reminst`
-		```
+		```PowerShell
 		New-PSDrive -Name <drive letter> -Root \\<server-ip>\reminst -PSProvider FileSystem
 		```
 
@@ -78,7 +78,7 @@ configure networking (static ip’s, etc)
 
 
 	7. Run scripts in the following order:
-		```
+		```PowerShell
 		.\BuildWinPE.ps1
 		.\BuildInstallImage.ps1 
 		.\CopyImageToMaaS.ps1
@@ -91,7 +91,7 @@ configure networking (static ip’s, etc)
 	
 	*Note:* Replace win2012r2 with the windows flavour that you need.
 
-	```
+	```bash
 	mkdir -p /var/lib/maas/boot-resources/current/windows/amd64/generic/win2012r2/release
 	cd /var/lib/maas/boot-resources/current/windows/amd64/generic/win2012r2/release
 	for i in `ls /var/lib/maas/samba/ws2012r2/boot/`;do ln -s /var/lib/maas/samba/win2012r2/boot/$i $i;done
@@ -116,7 +116,7 @@ configure networking (static ip’s, etc)
 9. Add a ssh key for authentification to the nodes
 	
 	Generate a key:
-		```
+		```bash
 		ssh-keygen -t rsa
 		cat ~/.ssh/id_rsa.pub
 		```
@@ -127,7 +127,7 @@ configure networking (static ip’s, etc)
 
 10. If you are working on Vmware workstation/ESXI server you will need a power adapter so that MAAS can power on and off the VM's
 
-	```
+	```bash
 	git clone https://github.com/trobert2/maas-hacks
 	git fetch origin
 	git checkout -b new_poweradapter origin/new_poweradapter
