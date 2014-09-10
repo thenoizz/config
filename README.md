@@ -1,4 +1,4 @@
-myscripts
+ghosts 'n' stuff
 =========
 
 Various scripts
