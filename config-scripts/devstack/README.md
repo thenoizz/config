@@ -97,7 +97,7 @@ vi local.conf
 ```
 **IMPORTANT:** If the scripts doesn't finish properly or something else goes wrong, pleas unstack first using ```./unstack.sh``` script.
 
-#10. Edit .bashrc file 
+##10. Edit .bashrc file 
 ```
 cd
 vi .bashrc
@@ -109,4 +109,7 @@ export OS_TENANT_NAME=admin
 export OS_AUTH_URL=http://IP_ADDR:35357/v2.0/
 ```
 
-
+##11. Disable UFW
+```
+sudo ufw disable
+```
