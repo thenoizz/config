@@ -76,6 +76,8 @@ wget https://www.dropbox.com/s/db3okjoap14d7hu/trusty-server-cloudimg-amd64-vss.
 cd
 git clone https://github.com/openstack-dev/devstack.git
 cd devstack
+# Switch the branch to stable/icehouse
+git checkout stable/icehouse
 ```
 
 ##8. Copy local.conf and local.sh files
