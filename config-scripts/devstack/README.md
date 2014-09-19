@@ -97,6 +97,16 @@ vi local.conf
 ```
 **IMPORTANT:** If the scripts doesn't finish properly or something else goes wrong, pleas unstack first using ```./unstack.sh``` script.
 
+#10. Edit .bashrc file 
+```
+cd
+vi .bashrc
 
+#Add these lines at the end of the file
+export OS_USERNAME=admin
+export OS_PASSWORD=Passw0rd
+export OS_TENANT_NAME=admin
+export OS_AUTH_URL=http://IP_ADDR:35357/v2.0/
+```
 
 
