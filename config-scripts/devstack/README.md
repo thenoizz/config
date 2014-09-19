@@ -9,7 +9,7 @@ sudo apt-get upgrade
 
 ##2. Install git, vim, ethtool
 ```
-sudo apt-get install -y git vim ethtool
+sudo apt-get install -y git vim ethtool neutron-plugin-openvswitch-agent
 ```
 
 ##3. Edit network Interfaces
